@@ -9,7 +9,7 @@
 ######################################################################
 p6df::modules::zsh::deps() {
 	ModuleDeps=(
-    p6m7g8/p6common
+		p6m7g8/p6common
 
 		zsh-users/zsh-completions
 		zsh-users/zsh-syntax-highlighting
@@ -17,15 +17,11 @@ p6df::modules::zsh::deps() {
 		zsh-users/zsh-autosuggestions
 
 		hlissner/zsh-autopair
-		zdharma/history-search-multi-word
 		zdharma/fast-syntax-highlighting
 
 		sorin-ionescu/prezto:modules/history
 
 		ohmyzsh/ohmyzsh:lib/diagnostics
-		# jimeh/zsh-peco-history
-		psprint/zsh-navigation-tools
-		psprint/zsh-editing-workbench
 
 		zplug/zplug
 	)
