@@ -9,7 +9,7 @@
 ######################################################################
 p6df::modules::zsh::deps() {
 	ModuleDeps=(
-		p6m7g8/p6common
+		p6m7g8-dotfiles/p6common
 
 		zsh-users/zsh-completions
 		zsh-users/zsh-syntax-highlighting
