@@ -152,8 +152,8 @@ p6df::modules::zsh::off() {
 p6df::modules::zsh::on() {
 
   p6_file_remove "${ZDOTDIR}/.zshrc"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DIR/p6df-core/conf/zshrc" "${ZDOTDIR}/.zshrc"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DIR/p6df-core/conf/zshenv" "${ZDOTDIR}/.zshenv"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-core/conf/zshrc" "${ZDOTDIR}/.zshrc"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-core/conf/zshenv" "${ZDOTDIR}/.zshenv"
 }
 
 ######################################################################
