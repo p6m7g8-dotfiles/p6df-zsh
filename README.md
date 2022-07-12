@@ -49,14 +49,17 @@
 - p6df::modules::zsh::deps()
 - p6df::modules::zsh::external::brew()
 - p6df::modules::zsh::external::yum()
+- p6df::modules::zsh::fpath::current()
+- p6df::modules::zsh::fpath::if(dir)
 - p6df::modules::zsh::home::symlink()
 - p6df::modules::zsh::hooks::init()
 - p6df::modules::zsh::init()
 - p6df::modules::zsh::off()
 - p6df::modules::zsh::on()
 - p6df::modules::zsh::reload()
-- str dir = p6df::modules::zsh::prompt::dir()
-- str info = p6df::modules::zsh::prompt::std()
+- p6df::modules::zsh::zplug::init()
+- str dir = p6df::modules::zsh::dir::prompt::line()
+- str info = p6df::modules::zsh::std::prompt::line()
 
 
 

@@ -17,7 +17,7 @@ p6df::modules::zsh::deps() {
 		zsh-users/zsh-autosuggestions
 
 		hlissner/zsh-autopair
-		zdharma/fast-syntax-highlighting
+#		zdharma/fast-syntax-highlighting # XXX: complex install
 
 		sorin-ionescu/prezto:modules/history
 
@@ -73,15 +73,33 @@ p6df::modules::zsh::home::symlink() {
 #
 # Function: p6df::modules::zsh::init()
 #
-#  Environment:	 P6_DFZ_SRC_DIR
+#  Environment:	 HISTFILE P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::zsh::init() {
 
-  p6df::util::cdpath::if "$P6_DFZ_SRC_DIR/ohmyzsh/ohmyzsh/plugins"
+  p6_env_export HISTFILE="$__p6_dir/share/.zhistory"
+
+  p6df::core::path::cd::if "$P6_DFZ_SRC_DIR/ohmyzsh/ohmyzsh/plugins"
+  
+  p6df::modules::zsh::zplug::init
   p6df::modules::zsh::hooks::init
   p6df::modules::zsh::colors::init
   p6df::modules::zsh::comp::init
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::zplug::init()
+#
+#  Environment:	 ZPLUG_HOME
+#>
+######################################################################
+p6df::modules::zsh::zplug::init() {
+
+  p6_env_export "ZPLUG_HOME" "$P6_DFZ_SRC_DIR/zplug/zplug"
+  p6_file_load "$ZPLUG_HOME/init.zsh"
 }
 
 ######################################################################
@@ -113,14 +131,14 @@ p6df::modules::zsh::colors::init() {
 #
 # Function: p6df::modules::zsh::comp::init()
 #
-#  Environment:	 ZDOTDIR
 #>
 ######################################################################
 p6df::modules::zsh::comp::init() {``
 
-  autoload -U compaudit compinit
+  autoload -Uz compaudit
   compaudit
-  compinit -i -d ${ZDOTDIR}/.zcompdump
+  autoload -Uz compinit
+  compinit -C -d $__p6_dir/share/.zcompdump
 }
 
 ######################################################################
@@ -128,7 +146,6 @@ p6df::modules::zsh::comp::init() {``
 #
 # Function: p6df::modules::zsh::off()
 #
-#  Depends:	 p6_file
 #  Environment:	 ZDOTDIR
 #>
 ######################################################################
@@ -137,7 +154,6 @@ p6df::modules::zsh::off() {
   p6_file_unlink "${ZDOTDIR}/.zshrc"
   p6_file_unlink "${ZDOTDIR}/.zshenv"
   p6_file_create "${ZDOTDIR}/.zshrc"
-
 }
 
 ######################################################################
@@ -145,8 +161,7 @@ p6df::modules::zsh::off() {
 #
 # Function: p6df::modules::zsh::on()
 #
-#  Depends:	 p6_file
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DIR ZDOTDIR
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR ZDOTDIR
 #>
 ######################################################################
 p6df::modules::zsh::on() {
@@ -161,7 +176,6 @@ p6df::modules::zsh::on() {
 #
 # Function: p6df::modules::zsh::reload()
 #
-#  Depends:	 p6_env
 #  Environment:	 PATH
 #>
 ######################################################################
@@ -179,14 +193,14 @@ p6df::modules::zsh::reload() {
 ######################################################################
 #<
 #
-# Function: str info = p6df::modules::zsh::prompt::std()
+# Function: str info = p6df::modules::zsh::std::prompt::line()
 #
 #  Returns:
 #	str - info
 #
 #>
 ######################################################################
-p6df::modules::zsh::prompt::std() {
+p6df::modules::zsh::std::prompt::line() {
 
   local tty=$fg[cyan]%l$reset_color
   local user=$fg[blue]%n$reset_color
@@ -200,16 +214,53 @@ p6df::modules::zsh::prompt::std() {
 ######################################################################
 #<
 #
-# Function: str dir = p6df::modules::zsh::prompt::dir()
+# Function: str dir = p6df::modules::zsh::dir::prompt::line()
 #
 #  Returns:
 #	str - dir
 #
 #>
 ######################################################################
-p6df::modules::zsh::prompt::dir() {
+p6df::modules::zsh::dir::prompt::line() {
 
   local dir=$fg[green]%/$reset_color
 
   p6_return_str "$dir"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::fpath::current()
+#
+#  Environment:	 FPATH IFS SAVED_IFS
+#>
+######################################################################
+p6df::modules::zsh::fpath::current() {
+
+  local fp
+  local SAVED_IFS=$IFS
+  local IFS=:
+  for fp in $(echo $FPATH); do
+    echo "$fp"
+  done
+  IFS=$SAVED_IFS
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::fpath::if(dir)
+#
+#  Args:
+#	dir -
+#
+#>
+######################################################################
+p6df::modules::zsh::fpath::if() {
+  local dir="$1"
+
+  if p6_dir_exists "$dir"; then
+    fpath+=($dir)
+  fi
 }
