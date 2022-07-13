@@ -12,7 +12,7 @@ p6df::modules::zsh::deps() {
 		p6m7g8-dotfiles/p6common
 
 		zsh-users/zsh-completions
-		zsh-users/zsh-syntax-highlighting
+		zsh-users/zsh-syntax-highlighting # must be before below (wikipedia)
 		zsh-users/zsh-history-substring-search
 		zsh-users/zsh-autosuggestions
 
@@ -22,8 +22,6 @@ p6df::modules::zsh::deps() {
 		sorin-ionescu/prezto:modules/history
 
 		ohmyzsh/ohmyzsh:lib/diagnostics
-
-		zplug/zplug
 	)
 }
 
@@ -82,24 +80,9 @@ p6df::modules::zsh::init() {
 
   p6df::core::path::cd::if "$P6_DFZ_SRC_DIR/ohmyzsh/ohmyzsh/plugins"
   
-  p6df::modules::zsh::zplug::init
   p6df::modules::zsh::hooks::init
   p6df::modules::zsh::colors::init
   p6df::modules::zsh::comp::init
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::zplug::init()
-#
-#  Environment:	 ZPLUG_HOME
-#>
-######################################################################
-p6df::modules::zsh::zplug::init() {
-
-  p6_env_export "ZPLUG_HOME" "$P6_DFZ_SRC_DIR/zplug/zplug"
-  p6_file_load "$ZPLUG_HOME/init.zsh"
 }
 
 ######################################################################
