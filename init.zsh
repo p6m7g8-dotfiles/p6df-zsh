@@ -22,6 +22,9 @@ p6df::modules::zsh::deps() {
 		sorin-ionescu/prezto:modules/history
 
 		ohmyzsh/ohmyzsh:lib/diagnostics
+
+		ohmyzsh/ohmyzsh:plugins/encode64
+                ohmyzsh/ohmyzsh:plugins/nmap
 	)
 }
 
@@ -75,14 +78,15 @@ p6df::modules::zsh::home::symlink() {
 #>
 ######################################################################
 p6df::modules::zsh::init() {
+  local dir="$1"
 
-  p6_env_export HISTFILE="$__p6_dir/share/.zhistory"
+  p6_env_export HISTFILE="$dir/share/.zhistory"
 
-  p6df::core::path::cd::if "$P6_DFZ_SRC_DIR/ohmyzsh/ohmyzsh/plugins"
+  p6df::core::path::cd::if "$dir/plugins"
   
   p6df::modules::zsh::hooks::init
   p6df::modules::zsh::colors::init
-  p6df::modules::zsh::comp::init
+  p6df::modules::zsh::comp::init "$dir"
 }
 
 ######################################################################
@@ -117,11 +121,12 @@ p6df::modules::zsh::colors::init() {
 #>
 ######################################################################
 p6df::modules::zsh::comp::init() {``
+  local dir="$1"
 
   autoload -Uz compaudit
   compaudit
   autoload -Uz compinit
-  compinit -C -d $__p6_dir/share/.zcompdump
+  compinit -C -d $dir/share/.zcompdump
 }
 
 ######################################################################
