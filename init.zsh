@@ -72,9 +72,12 @@ p6df::modules::zsh::home::symlink() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::init()
+# Function: p6df::modules::zsh::init(dir)
 #
-#  Environment:	 HISTFILE P6_DFZ_SRC_DIR
+#  Args:
+#	dir -
+#
+#  Environment:	 HISTFILE
 #>
 ######################################################################
 p6df::modules::zsh::init() {
@@ -116,7 +119,10 @@ p6df::modules::zsh::colors::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::comp::init()
+# Function: p6df::modules::zsh::comp::init(dir)
+#
+#  Args:
+#	dir -
 #
 #>
 ######################################################################
