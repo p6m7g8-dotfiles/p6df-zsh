@@ -1,5 +1,4 @@
-# shellcheck shell=zsh
-
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -38,6 +37,8 @@ p6df::modules::zsh::deps() {
 p6df::modules::zsh::external::yum() {
 
   sudo yum install zsh
+
+  p6_return_void
 }
 
 ######################################################################
@@ -54,19 +55,8 @@ p6df::modules::zsh::external::brew() {
   brew install zshdb
   brew install zssh
   brew install zsync
-}
 
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::home::symlink()
-#
-#  Environment:	 XXX
-#>
-######################################################################
-p6df::modules::zsh::home::symlink() {
-
-  # XXX: .zshenv .zshrc here or there?
+  p6_return_void
 }
 
 ######################################################################
@@ -90,6 +80,8 @@ p6df::modules::zsh::init() {
   p6df::modules::zsh::hooks::init
   p6df::modules::zsh::colors::init
   p6df::modules::zsh::comp::init "$dir"
+
+  p6_return_void
 }
 
 ######################################################################
@@ -102,6 +94,8 @@ p6df::modules::zsh::init() {
 p6df::modules::zsh::hooks::init() {
 
   autoload -Uz add-zsh-hook
+
+  p6_return_void
 }
 
 ######################################################################
@@ -114,6 +108,8 @@ p6df::modules::zsh::hooks::init() {
 p6df::modules::zsh::colors::init() {
 
   autoload -U colors && colors
+
+  p6_return_void
 }
 
 ######################################################################
@@ -133,6 +129,8 @@ p6df::modules::zsh::comp::init() {``
   compaudit
   autoload -Uz compinit
   compinit -C -d $dir/share/.zcompdump
+
+  p6_return_void
 }
 
 ######################################################################
@@ -148,6 +146,8 @@ p6df::modules::zsh::off() {
   p6_file_unlink "${ZDOTDIR}/.zshrc"
   p6_file_unlink "${ZDOTDIR}/.zshenv"
   p6_file_create "${ZDOTDIR}/.zshrc"
+
+  p6_return_void
 }
 
 ######################################################################
@@ -163,6 +163,8 @@ p6df::modules::zsh::on() {
   p6_file_remove "${ZDOTDIR}/.zshrc"
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-core/conf/zshrc" "${ZDOTDIR}/.zshrc"
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-core/conf/zshenv" "${ZDOTDIR}/.zshenv"
+
+  p6_return_void
 }
 
 ######################################################################
@@ -182,6 +184,9 @@ p6df::modules::zsh::reload() {
   done
 
   exec zsh -li
+
+  # Not reached
+  p6_return_void
 }
 
 ######################################################################
@@ -239,6 +244,8 @@ p6df::modules::zsh::fpath::current() {
     echo "$fp"
   done
   IFS=$SAVED_IFS
+
+  p6_return_void
 }
 
 ######################################################################
@@ -257,4 +264,6 @@ p6df::modules::zsh::fpath::if() {
   if p6_dir_exists "$dir"; then
     fpath+=($dir)
   fi
+
+  p6_return_void
 }
