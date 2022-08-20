@@ -18,8 +18,6 @@ p6df::modules::zsh::deps() {
 		hlissner/zsh-autopair
 #		zdharma/fast-syntax-highlighting # XXX: complex install
 
-		sorin-ionescu/prezto:modules/history
-
 		ohmyzsh/ohmyzsh:lib/diagnostics
 
 		ohmyzsh/ohmyzsh:plugins/encode64
@@ -67,19 +65,46 @@ p6df::modules::zsh::external::brew() {
 #  Args:
 #	dir -
 #
-#  Environment:	 HISTFILE
 #>
 ######################################################################
 p6df::modules::zsh::init() {
   local dir="$1"
 
-  p6_env_export HISTFILE="$dir/share/.zhistory"
-
   p6df::core::path::cd::if "$dir/plugins"
-  
+
+  p6df::modules::zsh::history::init
   p6df::modules::zsh::hooks::init
   p6df::modules::zsh::colors::init
   p6df::modules::zsh::comp::init "$dir"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::history::init()
+#
+#  Environment:	 BANG_HIST EXTENDED_HISTORY HISTFILE HISTSIZE HIST_BEEP HIST_EXPIRE_DUPS_FIRST HIST_FIND_NO_DUPS HIST_IGNORE_ALL_DUPS HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_SAVE_NO_DUPS HIST_VERIFY SAVEHIST SHARE_HISTORY
+#>
+######################################################################
+p6df::modules::zsh::history::init() {
+
+  setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+  setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+  setopt SHARE_HISTORY             # Share history between all sessions.
+  setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+  setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+  setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+  setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+  setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+  setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+  setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+  setopt HIST_BEEP                 # Beep when accessing non-existent history.
+
+  p6_env_export HISTFILE "$ZDOTDIR/.zsh_history"
+  p6_env_export HISTSIZE 100000
+  p6_env_export SAVEHIST 100000
 
   p6_return_void
 }
@@ -179,7 +204,7 @@ p6df::modules::zsh::reload() {
 
   local pair 
   for pair in $(p6_env_list | grep -Ev "^PATH=|P6_DFZ_MODULES|MYSQL_PS1"); do
-    local k=$(echo $pair | awk -F= '{print $1}')
+    local k=$(p6_echo $pair | awk -F= '{print $1}')
     p6_env_export_un "$k"
   done
 
@@ -232,18 +257,12 @@ p6df::modules::zsh::dir::prompt::line() {
 #
 # Function: p6df::modules::zsh::fpath::current()
 #
-#  Environment:	 FPATH IFS SAVED_IFS
+#  Environment:	 FPATH
 #>
 ######################################################################
 p6df::modules::zsh::fpath::current() {
 
-  local fp
-  local SAVED_IFS=$IFS
-  local IFS=:
-  for fp in $(echo $FPATH); do
-    echo "$fp"
-  done
-  IFS=$SAVED_IFS
+  p6_vertical "$FPATH"
 
   p6_return_void
 }
@@ -264,6 +283,20 @@ p6df::modules::zsh::fpath::if() {
   if p6_dir_exists "$dir"; then
     fpath+=($dir)
   fi
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::history::stats()
+#
+#>
+######################################################################
+p6df::modules::zsh::history::stats() {
+
+  history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
 
   p6_return_void
 }
