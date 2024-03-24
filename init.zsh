@@ -48,34 +48,11 @@ p6df::modules::zsh::external::yum() {
 ######################################################################
 p6df::modules::zsh::external::brew() {
 
-  brew install zsh
-  brew install zmap
-  brew install zshdb
-  brew install zssh
-  brew install zsync
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::init(dir)
-#
-#  Args:
-#	dir -
-#
-#>
-######################################################################
-p6df::modules::zsh::init() {
-  local dir="$1"
-
-  p6df::core::path::cd::if "$dir/plugins"
-
-  p6df::modules::zsh::history::init
-  p6df::modules::zsh::hooks::init
-  p6df::modules::zsh::colors::init
-  p6df::modules::zsh::comp::init "$dir"
+  p6df::modules::homebrew::cli::brew::install zsh
+  p6df::modules::homebrew::cli::brew::install zmap
+  p6df::modules::homebrew::cli::brew::install zshdb
+  p6df::modules::homebrew::cli::brew::install zssh
+  p6df::modules::homebrew::cli::brew::install zsync
 
   p6_return_void
 }
@@ -161,16 +138,29 @@ p6df::modules::zsh::comp::init() {``
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::off()
+# Function: p6df::modules::zsh::completions::init()
 #
-#  Environment:	 ZDOTDIR
 #>
 ######################################################################
-p6df::modules::zsh::off() {
+p6df::modules::zsh::completions::init() {
 
-  p6_file_unlink "${ZDOTDIR}/.zshrc"
-  p6_file_unlink "${ZDOTDIR}/.zshenv"
-  p6_file_create "${ZDOTDIR}/.zshrc"
+ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+ p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::aliases::init()
+#
+#>
+######################################################################
+p6df::modules::zsh::aliases::init() {
+
+  p6_alias "p6_zoff" "p6df::modules::zsh::state::off"
+  p6_alias "p6_zon" "p6df::modules::zsh::state::on"
+  p6_alias "p6_zreload" "p6df::modules::zsh::state::reload"
 
   p6_return_void
 }
@@ -178,39 +168,25 @@ p6df::modules::zsh::off() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::on()
+# Function: p6df::modules::zsh::init(_module, dir)
 #
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR ZDOTDIR
+#  Args:
+#	_module -
+#	dir -
+#
 #>
 ######################################################################
-p6df::modules::zsh::on() {
+p6df::modules::zsh::init() {
+  local _module="$1"
+  local dir="$2"
 
-  p6_file_remove "${ZDOTDIR}/.zshrc"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-core/conf/zshrc" "${ZDOTDIR}/.zshrc"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-core/conf/zshenv" "${ZDOTDIR}/.zshenv"
+  p6_bootstrap "$dir"
 
-  p6_return_void
-}
+  p6df::modules::zsh::history::init
+  p6df::modules::zsh::hooks::init
+  p6df::modules::zsh::colors::init
+  p6df::modules::zsh::comp::init "$dir"
 
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::reload()
-#
-#  Environment:	 PATH
-#>
-######################################################################
-p6df::modules::zsh::reload() {
-
-  local pair 
-  for pair in $(p6_env_list | grep -Ev "^PATH=|P6_DFZ_MODULES|MYSQL_PS1"); do
-    local k=$(p6_echo $pair | awk -F= '{print $1}')
-    p6_env_export_un "$k"
-  done
-
-  exec zsh -li
-
-  # Not reached
   p6_return_void
 }
 
@@ -250,53 +226,4 @@ p6df::modules::zsh::dir::prompt::line() {
   local dir=$fg[green]%/$reset_color
 
   p6_return_str "$dir"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::fpath::current()
-#
-#  Environment:	 FPATH
-#>
-######################################################################
-p6df::modules::zsh::fpath::current() {
-
-  p6_vertical "$FPATH"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::fpath::if(dir)
-#
-#  Args:
-#	dir -
-#
-#>
-######################################################################
-p6df::modules::zsh::fpath::if() {
-  local dir="$1"
-
-  if p6_dir_exists "$dir"; then
-    fpath+=($dir)
-  fi
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::history::stats()
-#
-#>
-######################################################################
-p6df::modules::zsh::history::stats() {
-
-  history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
-
-  p6_return_void
 }
