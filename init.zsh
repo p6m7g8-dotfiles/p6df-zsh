@@ -21,7 +21,7 @@ p6df::modules::zsh::deps() {
 		ohmyzsh/ohmyzsh:lib/diagnostics
 
 		ohmyzsh/ohmyzsh:plugins/encode64
-    ohmyzsh/ohmyzsh:plugins/nmap
+	    	ohmyzsh/ohmyzsh:plugins/nmap
 	)
 }
 
