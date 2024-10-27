@@ -16,7 +16,7 @@ jobs:
         run: |
           zsh -c '
           for repo in $(for dep in $(. ./init.zsh ; p6df::modules::zsh::deps ; echo $ModuleDeps); do echo $dep; done | awk -F: "{print $1}" |sort -u); do
-            echo git clone https://github.com/$repo
+            git clone https://github.com/$repo
           done'
       - name: Test
         env:
