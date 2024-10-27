@@ -15,7 +15,7 @@ jobs:
       - name: Dependant Repositories
         run: |
           zsh -c '
-          for repo in $(for dep in $(. ./init.zsh ; p6df::modules::zsh::deps ; echo $ModuleDeps); do echo $dep; done | awk -F: "{print $1}" |sort -u); do
+          for repo in $(for dep in $(. ./init.zsh ; p6df::modules::zsh::deps ; echo $ModuleDeps); do echo $dep; done | cut -d: -f 1 |sort -u); do
             git clone https://github.com/$repo
           done'
       - name: Test
