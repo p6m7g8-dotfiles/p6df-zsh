@@ -18,7 +18,7 @@ jobs:
           repository: p6m7g8-dotfiles/p6common
           path: p6common
       - name: Dependant Repositories
-        run: zsh -e p6df::modules::p6common::gha::ModuleDeps zsh
+        run: zsh -c 'p6df::modules::p6common::gha::ModuleDeps zsh'
       - name: Test
         env:
           P6_DFZ_SRC_P6M7G8_DOTFILES_DIR: .
