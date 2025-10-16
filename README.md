@@ -70,13 +70,13 @@
 
 ```text
 .
-├── README.md
 ├── init.zsh
-└── lib
-    ├── fpath.zsh
-    ├── history.zsh
-    ├── profile.zsh
-    └── state.zsh
+├── lib
+│   ├── fpath.zsh
+│   ├── history.zsh
+│   ├── profile.zsh
+│   └── state.zsh
+└── README.md
 
 2 directories, 6 files
 ```
