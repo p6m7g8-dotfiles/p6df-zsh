@@ -205,13 +205,13 @@ p6df::modules::zsh::init() {
 p6df::modules::zsh::std::prompt::line() {
 
   local tty
-  # shellcheck disable=1087
+  # shellcheck disable=1087,2154
   tty="$fg[cyan]%l$reset_color"
   local user
-  # shellcheck disable=1087
+  # shellcheck disable=1087,2154
   user="$fg[blue]%n$reset_color"
   local host
-  # shellcheck disable=1087
+  # shellcheck disable=1087,2154
   host="$fg[yellow]%M$reset_color"
 
   local info
