@@ -9,6 +9,7 @@
 ######################################################################
 p6df::modules::zsh::fpath::current() {
 
+    # shellcheck disable=2153
     p6_vertical "$FPATH"
 
     p6_return_void
@@ -28,7 +29,7 @@ p6df::modules::zsh::fpath::if() {
     local dir="$1"
 
     if p6_dir_exists "$dir"; then
-        fpath+=($dir)
+        fpath+=("$dir")
     fi
 
     p6_return_void

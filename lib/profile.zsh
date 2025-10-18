@@ -1,4 +1,4 @@
-# shellcheck shell=zsh
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -18,9 +18,10 @@ p6df::modules::zsh::profile::on() {
     PS4='+$EPOCHREALTIME %N:%i> '
     export PS4
 
-    local logfile=$(mktemp $name-zsh.XXXXXXXX)
+    local logfile
+    logfile=$(mktemp "$name-zsh.XXXXXXXX")
     echo "Logging to $logfile"
-    exec 3>&2 2>$logfile
+    exec 3>&2 2>"$logfile"
 
     setopt XTRACE
     set -x
