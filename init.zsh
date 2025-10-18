@@ -204,14 +204,15 @@ p6df::modules::zsh::init() {
 ######################################################################
 p6df::modules::zsh::std::prompt::line() {
 
-  # shellcheck disable=2154
-  local tty=$fg[cyan]%l$reset_color
-  # shellcheck disable=2154
-  local user=$fg[blue]%n$reset_color
-  # shellcheck disable=2154
-  local host=$fg[yellow]%M$reset_color
+  local tty
+  tty="$fg[cyan]%l$reset_color"
+  local user
+  user="$fg[blue]%n$reset_color"
+  local host
+  host="$fg[yellow]%M$reset_color"
 
-  local info="[$tty]$user@$host rv=%?"
+  local info
+  info="[$tty]$user@$host rv=%?"
 
   p6_return_str "$info"
 }
@@ -228,7 +229,7 @@ p6df::modules::zsh::std::prompt::line() {
 ######################################################################
 p6df::modules::zsh::dir::prompt::line() {
 
-  local dir=$fg[green]%/$reset_color
+  local dir="$fg[green]%/$reset_color"
 
   p6_return_str "$dir"
 }
