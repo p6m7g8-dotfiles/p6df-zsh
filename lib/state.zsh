@@ -47,10 +47,12 @@ p6df::modules::zsh::state::reload() {
 
   local pair
   for pair in $(p6_env_list | grep -Ev "^PATH=|P6_DFZ_MODULES|MYSQL_PS1"); do
-    local k=$(p6_echo $pair | awk -F= '{print $1}')
+    local k
+    k=$(p6_echo "$pair" | awk -F= '{print $1}')
     p6_env_export_un "$k"
   done
 
+  # shellcheck disable=2093
   exec zsh -li
 
   # Not reached

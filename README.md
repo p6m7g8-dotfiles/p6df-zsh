@@ -25,6 +25,7 @@
 - p6_zoff IS p6df::modules::zsh::state::off
 - p6_zon IS p6df::modules::zsh::state::on
 - p6_zreload IS p6df::modules::zsh::state::reload
+
 ### Functions
 
 ## p6df-zsh

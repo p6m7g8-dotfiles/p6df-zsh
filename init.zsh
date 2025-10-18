@@ -7,6 +7,8 @@
 #>
 ######################################################################
 p6df::modules::zsh::deps() {
+
+  # shellcheck disable=2034
 	ModuleDeps=(
 		p6m7g8-dotfiles/p6common
 
@@ -21,7 +23,7 @@ p6df::modules::zsh::deps() {
 		ohmyzsh/ohmyzsh:lib/diagnostics
 
 		ohmyzsh/ohmyzsh:plugins/encode64
-	    	ohmyzsh/ohmyzsh:plugins/nmap
+	  ohmyzsh/ohmyzsh:plugins/nmap
 	)
 }
 
@@ -123,13 +125,13 @@ p6df::modules::zsh::colors::init() {
 #
 #>
 ######################################################################
-p6df::modules::zsh::comp::init() {``
+p6df::modules::zsh::comp::init() {
   local dir="$1"
 
   autoload -Uz compaudit
   compaudit
   autoload -Uz compinit
-  compinit -C -d $dir/share/.zcompdump
+  compinit -C -d "$dir/share/.zcompdump"""
 
   p6_return_void
 }
@@ -143,6 +145,7 @@ p6df::modules::zsh::comp::init() {``
 ######################################################################
 p6df::modules::zsh::completions::init() {
 
+ # shellcheck disable=2016
  zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
  p6_return_void
@@ -201,11 +204,18 @@ p6df::modules::zsh::init() {
 ######################################################################
 p6df::modules::zsh::std::prompt::line() {
 
-  local tty=$fg[cyan]%l$reset_color
-  local user=$fg[blue]%n$reset_color
-  local host=$fg[yellow]%M$reset_color
+  local tty
+  # shellcheck disable=1087,2154
+  tty="$fg[cyan]%l$reset_color"
+  local user
+  # shellcheck disable=1087,2154
+  user="$fg[blue]%n$reset_color"
+  local host
+  # shellcheck disable=1087,2154
+  host="$fg[yellow]%M$reset_color"
 
-  local info="[$tty]$user@$host rv=%?"
+  local info
+  info="[$tty]$user@$host rv=%?"
 
   p6_return_str "$info"
 }
@@ -222,7 +232,8 @@ p6df::modules::zsh::std::prompt::line() {
 ######################################################################
 p6df::modules::zsh::dir::prompt::line() {
 
-  local dir=$fg[green]%/$reset_color
+  # shellcheck disable=1087
+  local dir="$fg[green]%/$reset_color"
 
   p6_return_str "$dir"
 }
