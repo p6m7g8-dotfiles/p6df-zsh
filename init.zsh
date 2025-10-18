@@ -7,6 +7,8 @@
 #>
 ######################################################################
 p6df::modules::zsh::deps() {
+
+  # shellcheck disable=2034
 	ModuleDeps=(
 		p6m7g8-dotfiles/p6common
 
@@ -21,7 +23,7 @@ p6df::modules::zsh::deps() {
 		ohmyzsh/ohmyzsh:lib/diagnostics
 
 		ohmyzsh/ohmyzsh:plugins/encode64
-	    	ohmyzsh/ohmyzsh:plugins/nmap
+	  ohmyzsh/ohmyzsh:plugins/nmap
 	)
 }
 
@@ -123,7 +125,7 @@ p6df::modules::zsh::colors::init() {
 #
 #>
 ######################################################################
-p6df::modules::zsh::comp::init() {``
+p6df::modules::zsh::comp::init() {
   local dir="$1"
 
   autoload -Uz compaudit
@@ -143,6 +145,7 @@ p6df::modules::zsh::comp::init() {``
 ######################################################################
 p6df::modules::zsh::completions::init() {
 
+ # shellcheck disable=2016
  zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
  p6_return_void
@@ -201,8 +204,11 @@ p6df::modules::zsh::init() {
 ######################################################################
 p6df::modules::zsh::std::prompt::line() {
 
+  # shellcheck disable=2154
   local tty=$fg[cyan]%l$reset_color
+  # shellcheck disable=2154
   local user=$fg[blue]%n$reset_color
+  # shellcheck disable=2154
   local host=$fg[yellow]%M$reset_color
 
   local info="[$tty]$user@$host rv=%?"

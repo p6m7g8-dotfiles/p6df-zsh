@@ -1,9 +1,20 @@
 {
     "cSpell.words": [
+        "autopair",
+        "compaudit",
+        "DUPS",
         "fpath",
         "Gollucci",
+        "hlissner",
         "Mergify",
+        "nmap",
+        "SAVEHIST",
+        "zcompdump",
+        "zdharma",
+        "zmap",
         "zoff",
-        "zreload"
+        "zreload",
+        "zshdb",
+        "zssh"
     ]
 }
