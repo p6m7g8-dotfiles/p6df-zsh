@@ -131,7 +131,7 @@ p6df::modules::zsh::comp::init() {
   autoload -Uz compaudit
   compaudit
   autoload -Uz compinit
-  compinit -C -d $dir/share/.zcompdump
+  compinit -C -d "$dir/share/.zcompdump"""
 
   p6_return_void
 }
@@ -205,10 +205,13 @@ p6df::modules::zsh::init() {
 p6df::modules::zsh::std::prompt::line() {
 
   local tty
+  # shellcheck disable=1087
   tty="$fg[cyan]%l$reset_color"
   local user
+  # shellcheck disable=1087
   user="$fg[blue]%n$reset_color"
   local host
+  # shellcheck disable=1087
   host="$fg[yellow]%M$reset_color"
 
   local info
@@ -229,6 +232,7 @@ p6df::modules::zsh::std::prompt::line() {
 ######################################################################
 p6df::modules::zsh::dir::prompt::line() {
 
+  # shellcheck disable=1087
   local dir="$fg[green]%/$reset_color"
 
   p6_return_str "$dir"
