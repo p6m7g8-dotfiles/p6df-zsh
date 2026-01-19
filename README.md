@@ -5,8 +5,6 @@
 ## Badges
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Mergify](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges//p6df-zsh/&style=flat)](https://mergify.io)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](<https://gitpod.io/#https://github.com//p6df-zsh>)
 
 ## Summary
 
@@ -42,8 +40,9 @@
 - p6df::modules::zsh::history::init()
 - p6df::modules::zsh::hooks::init()
 - p6df::modules::zsh::init(_module, dir)
-- str dir = p6df::modules::zsh::dir::prompt::line()
-- str info = p6df::modules::zsh::std::prompt::line()
+- str dir = p6df::modules::zsh::dir::prompt::mod()
+- str info = p6df::modules::zsh::std::prompt::mod()
+- str str = p6df::modules::zsh::prompt::mod()
 
 ## p6df-zsh/lib
 

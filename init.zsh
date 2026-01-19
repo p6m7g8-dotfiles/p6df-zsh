@@ -195,14 +195,14 @@ p6df::modules::zsh::init() {
 ######################################################################
 #<
 #
-# Function: str info = p6df::modules::zsh::std::prompt::line()
+# Function: str info = p6df::modules::zsh::std::prompt::mod()
 #
 #  Returns:
 #	str - info
 #
 #>
 ######################################################################
-p6df::modules::zsh::std::prompt::line() {
+p6df::modules::zsh::std::prompt::mod() {
 
   local tty
   # shellcheck disable=1087,2154
@@ -223,14 +223,14 @@ p6df::modules::zsh::std::prompt::line() {
 ######################################################################
 #<
 #
-# Function: str dir = p6df::modules::zsh::dir::prompt::line()
+# Function: str dir = p6df::modules::zsh::dir::prompt::mod()
 #
 #  Returns:
 #	str - dir
 #
 #>
 ######################################################################
-p6df::modules::zsh::dir::prompt::line() {
+p6df::modules::zsh::dir::prompt::mod() {
 
   # shellcheck disable=1087
   local dir="$fg[green]%/$reset_color"
