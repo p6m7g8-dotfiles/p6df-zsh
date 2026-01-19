@@ -40,7 +40,6 @@ p6df::modules::zsh::state::on() {
 #
 # Function: p6df::modules::zsh::state::reload()
 #
-#  Environment:	 PATH
 #>
 ######################################################################
 p6df::modules::zsh::state::reload() {
