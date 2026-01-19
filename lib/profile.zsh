@@ -7,7 +7,7 @@
 #  Args:
 #	name -
 #
-#  Environment:	 PROMPT_SUBST PS4 XTRACE XXXXXXXX
+#  Environment:	 EPOCHREALTIME PS4
 #>
 ######################################################################
 p6df::modules::zsh::profile::on() {
@@ -32,7 +32,7 @@ p6df::modules::zsh::profile::on() {
 #
 # Function: p6df::modules::zsh::profile::off()
 #
-#  Environment:	 PS4 XTRACE
+#  Environment:	 PS4
 #>
 ######################################################################
 p6df::modules::zsh::profile::off() {

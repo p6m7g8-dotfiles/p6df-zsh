@@ -63,7 +63,7 @@ p6df::modules::zsh::external::brew() {
 #
 # Function: p6df::modules::zsh::history::init()
 #
-#  Environment:	 BANG_HIST EXTENDED_HISTORY HISTFILE HISTSIZE HIST_BEEP HIST_EXPIRE_DUPS_FIRST HIST_FIND_NO_DUPS HIST_IGNORE_ALL_DUPS HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_SAVE_NO_DUPS HIST_VERIFY SAVEHIST SHARE_HISTORY
+#  Environment:	 HISTFILE HISTSIZE SAVEHIST ZDOTDIR
 #>
 ######################################################################
 p6df::modules::zsh::history::init() {
