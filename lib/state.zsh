@@ -45,9 +45,9 @@ p6df::modules::zsh::state::on() {
 p6df::modules::zsh::state::reload() {
 
   local pair
-  for pair in $(p6_env_list | grep -Ev "^PATH=|P6_DFZ_MODULES|MYSQL_PS1"); do
+  for pair in $(p6_env_list | p6_filter_row_exclude_regex "^PATH=|P6_DFZ_MODULES|MYSQL_PS1"); do
     local k
-    k=$(p6_echo "$pair" | awk -F= '{print $1}')
+    k=$(p6_echo "$pair" | p6_filter_column_pluck 1 "=")
     p6_env_export_un "$k"
   done
 
