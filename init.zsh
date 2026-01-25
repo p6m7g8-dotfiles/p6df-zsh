@@ -50,10 +50,10 @@ p6df::modules::zsh::external::yum() {
 ######################################################################
 p6df::modules::zsh::external::brew() {
 
-  p6df::modules::homebrew::cli::brew::install zsh
-  p6df::modules::homebrew::cli::brew::install zmap
-  p6df::modules::homebrew::cli::brew::install zshdb
-  p6df::modules::homebrew::cli::brew::install zssh
+  p6df::core::homebrew::cli::brew::install zsh
+  p6df::core::homebrew::cli::brew::install zmap
+  p6df::core::homebrew::cli::brew::install zshdb
+  p6df::core::homebrew::cli::brew::install zssh
 
   p6_return_void
 }
