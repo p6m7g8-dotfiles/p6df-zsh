@@ -45,6 +45,8 @@ TODO: Add a short summary of this module.
 - `p6df::modules::zsh::aliases::init()`
 - `p6df::modules::zsh::colors::init()`
 - `p6df::modules::zsh::comp::init(dir)`
+  - Args:
+    - dir - 
 - `p6df::modules::zsh::completions::init()`
 - `p6df::modules::zsh::deps()`
 - `p6df::modules::zsh::external::brew()`
@@ -52,6 +54,9 @@ TODO: Add a short summary of this module.
 - `p6df::modules::zsh::history::init()`
 - `p6df::modules::zsh::hooks::init()`
 - `p6df::modules::zsh::init(_module, dir)`
+  - Args:
+    - _module - 
+    - dir - 
 - `str dir = p6df::modules::zsh::dir::prompt::mod()`
 - `str info = p6df::modules::zsh::std::prompt::mod()`
 
@@ -61,6 +66,8 @@ TODO: Add a short summary of this module.
 
 - `p6df::modules::zsh::fpath::current()`
 - `p6df::modules::zsh::fpath::if(dir)`
+  - Args:
+    - dir - 
 
 ##### p6df-zsh/lib/history.zsh
 
@@ -70,6 +77,8 @@ TODO: Add a short summary of this module.
 
 - `p6df::modules::zsh::profile::off()`
 - `p6df::modules::zsh::profile::on(name)`
+  - Args:
+    - name - 
 
 ##### p6df-zsh/lib/state.zsh
 
