@@ -16,11 +16,11 @@ p6df::modules::zsh::profile::on() {
     zmodload zsh/datetime
     setopt PROMPT_SUBST
     PS4='+$EPOCHREALTIME %N:%i> '
-    export PS4
+    p6_env_export "PS4" "$PS4"
 
     local logfile
     logfile=$(mktemp "$name-zsh.XXXXXXXX")
-    echo "Logging to $logfile"
+    p6_msg "Logging to $logfile"
     exec 3>&2 2>"$logfile"
 
     setopt XTRACE
@@ -41,7 +41,7 @@ p6df::modules::zsh::profile::off() {
     unsetopt XTRACE
 
     PS4='+%N:%i>'
-    export PS4
+    p6_env_export "PS4" "$PS4"
 
     exec 2>&3 3>&-
 }
