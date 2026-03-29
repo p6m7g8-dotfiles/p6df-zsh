@@ -44,11 +44,11 @@ p6df::modules::zsh::external::yum() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::external::brew()
+# Function: p6df::modules::zsh::external::brews()
 #
 #>
 ######################################################################
-p6df::modules::zsh::external::brew() {
+p6df::modules::zsh::external::brews() {
 
   p6df::core::homebrew::cli::brew::install zsh
   p6df::core::homebrew::cli::brew::install zmap
