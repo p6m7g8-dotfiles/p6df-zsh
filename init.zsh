@@ -30,20 +30,6 @@ p6df::modules::zsh::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::external::yum()
-#
-#>
-######################################################################
-p6df::modules::zsh::external::yum() {
-
-  sudo yum install zsh
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::zsh::external::brews()
 #
 #>
@@ -139,6 +125,20 @@ p6df::modules::zsh::comp::init() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::zsh::env::init()
+#
+#>
+######################################################################
+p6df::modules::zsh::env::init() {
+
+  p6df::modules::zsh::history::init
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::zsh::completions::init()
 #
 #>
@@ -182,9 +182,6 @@ p6df::modules::zsh::init() {
   local _module="$1"
   local dir="$2"
 
-  p6_bootstrap "$dir"
-
-  p6df::modules::zsh::history::init
   p6df::modules::zsh::hooks::init
   p6df::modules::zsh::colors::init
   p6df::modules::zsh::comp::init "$dir"
@@ -195,7 +192,7 @@ p6df::modules::zsh::init() {
 ######################################################################
 #<
 #
-# Function: str info = p6df::modules::zsh::std::prompt::mod()
+# Function: str info = p6df::modules::zsh::std::profile::mod()
 #
 #  Returns:
 #	str - info
