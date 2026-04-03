@@ -2,7 +2,7 @@
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::profile::on(name)
+# Function: p6df::modules::zsh::profiling::on(name)
 #
 #  Args:
 #	name -
@@ -10,7 +10,7 @@
 #  Environment:	 EPOCHREALTIME PS4
 #>
 ######################################################################
-p6df::modules::zsh::profile::on() {
+p6df::modules::zsh::profiling::on() {
     local name="$1"
 
     zmodload zsh/datetime
@@ -30,12 +30,12 @@ p6df::modules::zsh::profile::on() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::zsh::profile::off()
+# Function: p6df::modules::zsh::profiling::off()
 #
 #  Environment:	 PS4
 #>
 ######################################################################
-p6df::modules::zsh::profile::off() {
+p6df::modules::zsh::profiling::off() {
 
     set +x
     unsetopt XTRACE
