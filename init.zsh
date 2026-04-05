@@ -30,6 +30,73 @@ p6df::modules::zsh::deps() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::zsh::init(_module, dir)
+#
+#  Args:
+#	_module -
+#	dir -
+#
+#>
+######################################################################
+p6df::modules::zsh::init() {
+  local _module="$1"
+  local dir="$2"
+
+  p6df::modules::zsh::hooks::init
+  p6df::modules::zsh::colors::init
+  p6df::modules::zsh::comp::init "$dir"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::env::init()
+#
+#>
+######################################################################
+p6df::modules::zsh::env::init() {
+
+  p6df::modules::zsh::history::init
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::completions::init()
+#
+#>
+######################################################################
+p6df::modules::zsh::completions::init() {
+
+ # shellcheck disable=2016
+ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+ p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::zsh::aliases::init()
+#
+#>
+######################################################################
+p6df::modules::zsh::aliases::init() {
+
+  p6_alias "p6_zoff" "p6df::modules::zsh::state::off"
+  p6_alias "p6_zon" "p6df::modules::zsh::state::on"
+  p6_alias "p6_zreload" "p6df::modules::zsh::state::reload"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::zsh::external::brews()
 #
 #>
@@ -118,73 +185,6 @@ p6df::modules::zsh::comp::init() {
   compaudit
   autoload -Uz compinit
   compinit -C -d "$dir/share/.zcompdump"""
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::env::init()
-#
-#>
-######################################################################
-p6df::modules::zsh::env::init() {
-
-  p6df::modules::zsh::history::init
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::completions::init()
-#
-#>
-######################################################################
-p6df::modules::zsh::completions::init() {
-
- # shellcheck disable=2016
- zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-
- p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::aliases::init()
-#
-#>
-######################################################################
-p6df::modules::zsh::aliases::init() {
-
-  p6_alias "p6_zoff" "p6df::modules::zsh::state::off"
-  p6_alias "p6_zon" "p6df::modules::zsh::state::on"
-  p6_alias "p6_zreload" "p6df::modules::zsh::state::reload"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::zsh::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
-#
-#>
-######################################################################
-p6df::modules::zsh::init() {
-  local _module="$1"
-  local dir="$2"
-
-  p6df::modules::zsh::hooks::init
-  p6df::modules::zsh::colors::init
-  p6df::modules::zsh::comp::init "$dir"
 
   p6_return_void
 }
