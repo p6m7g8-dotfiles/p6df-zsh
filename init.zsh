@@ -192,7 +192,7 @@ p6df::modules::zsh::comp::init() {
 ######################################################################
 #<
 #
-# Function: str info = p6df::modules::zsh::std::profile::mod()
+# Function: str info = p6df::modules::zsh::std::prompt::mod()
 #
 #  Returns:
 #	str - info
